@@ -9,3 +9,9 @@ td {
   border-color:black;
   vertical-align: top;
 }
+
+.prompt {
+  background-color: black;
+  color: green;
+  border-color: green;
+}
