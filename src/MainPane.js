@@ -3,7 +3,7 @@ import FarmAllocation from './FarmAllocation.js';
 import Inventory from './Inventory.js';
 import Market from './Market.js';
 import Crafting from './Crafting.js';
-
+import Prompt from './Prompt';
 
 class MainPane extends Component {
     constructor(props) {
@@ -11,62 +11,73 @@ class MainPane extends Component {
 
       this.state = {
         farm : {
-            total : 50,
-            sheep : 20
+            unassigned : 3,
+            sheep : 2,
+            cow : 0,
+            wheat : 0
         },
         inventory : {
             meal : 10,
-            sheep : 5
+            sheep : 1
         }
       };
     }
 
-    updateState()
+    updateState(state)
+    { 
+        this.setState(state);
+        this.farmAllocation.updateState(state);
+        this.inventory.updateState(state);
+        this.prompt.updateState(state);
+    }
+
+    newItems()
     {
-        var newState = Object.assign({}, this.state);
-        newState.farm.total = this.state.farm.total - 1;
-        newState.farm.sheep = this.state.farm.sheep + 1;
-    
-        this.setState(newState);
-        this.farmAllocation.updateState(newState);
-        this.inventory.updateState(newState);
         this.market.newItems();
     }
     
     render() {
       return (
-        <table>
-            <thead>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <FarmAllocation
-                            startingState = {this.state}
-                            ref={(farmAllocation) => {this.farmAllocation = farmAllocation}}
-                        />
-                    </td>
-                    <td>
-                        <Inventory
-                            startingState = {this.state}
-                            ref={(inventory) => {this.inventory = inventory}}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <Market
-                            ref={(market) => {this.market = market}}
-                        />
-                    </td>
-                    <td>
-                        <Crafting
-                            ref={(crafting) => {this.crafting = crafting}}
-                        />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div>
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <FarmAllocation
+                                startingState = {this.state}
+                                ref={(farmAllocation) => {this.farmAllocation = farmAllocation}}
+                            />
+                        </td>
+                        <td>
+                            <Inventory
+                                startingState = {this.state}
+                                ref={(inventory) => {this.inventory = inventory}}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Market
+                                ref={(market) => {this.market = market}}
+                            />
+                        </td>
+                        <td>
+                            <Crafting
+                                ref={(crafting) => {this.crafting = crafting}}
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <Prompt 
+                startingState = {this.state}
+                ref={(prompt) => {this.prompt = prompt}}
+                promptCallback = { (state) => this.updateState(state) }
+            />
+        </div>
       );
     }
   }

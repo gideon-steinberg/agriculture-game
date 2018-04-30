@@ -16,9 +16,15 @@ class FarmAllocation extends Component {
     render() {
         return (
             <div>
-                Farm Allocation {this.state.total}
+                Farm Allocation
+                <br />
+                Unassigned {this.state.unassigned}
                 <br />
                 Sheep {this.state.sheep} 
+                <br />
+                Cow {this.state.cow} 
+                <br />
+                Wheat {this.state.wheat} 
             </div>
         )
     }
