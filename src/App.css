@@ -1,0 +1,11 @@
+html {
+  background-color: black;
+  color: green;
+}
+
+td {
+  border-right:50px;
+  border-style:solid;
+  border-color:black;
+  vertical-align: top;
+}

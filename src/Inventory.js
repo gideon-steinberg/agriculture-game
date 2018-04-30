@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 
 
-class FarmAllocation extends Component {
+class Inventory extends Component {
     constructor(props) {
         super(props);
     
-        this.state = props.startingState.farm;
+        this.state = props.startingState.inventory;
     }
 
     updateState(state)
     {
-        this.setState(state.farm);
+        this.setState(state.inventory);
     }
 
     render() {
         return (
             <div>
-                Farm Allocation {this.state.total}
+                Inventory
                 <br />
                 Sheep {this.state.sheep} 
+                <br />
+                Meal {this.state.meal} 
             </div>
         )
     }
 }
 
-export default FarmAllocation;
+export default Inventory;

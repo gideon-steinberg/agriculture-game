@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import FarmAllocation from './FarmAllocation.js';
+import Inventory from './Inventory.js';
+import Market from './Market.js';
+import Crafting from './Crafting.js';
 
 
 class MainPane extends Component {
@@ -10,6 +13,13 @@ class MainPane extends Component {
         farm : {
             total : 50,
             sheep : 20
+        },
+        inventory : {
+            meal : 10,
+            sheep : 5
+        },
+        market : {
+
         }
       };
     }
@@ -22,6 +32,8 @@ class MainPane extends Component {
     
         this.setState(newState);
         this.farmAllocation.updateState(newState);
+        this.inventory.updateState(newState);
+        this.market.updateState(newState);
     }
     
     render() {
@@ -33,25 +45,28 @@ class MainPane extends Component {
                 <tr>
                     <td>
                         <FarmAllocation
+                            startingState = {this.state}
                             ref={(farmAllocation) => {this.farmAllocation = farmAllocation}}
                         />
                     </td>
                     <td>
-                        <button onClick={ () => this.updateState()}>
-                            Click
-                        </button>
+                        <Inventory
+                            startingState = {this.state}
+                            ref={(inventory) => {this.inventory = inventory}}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td>
+                        <Market
+                            startingState = {this.state}
+                            ref={(market) => {this.market = market}}
+                        />
                     </td>
                     <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
+                        <Crafting
+                            ref={(crafting) => {this.crafting = crafting}}
+                        />
                     </td>
                 </tr>
             </tbody>
