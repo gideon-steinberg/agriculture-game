@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
+import DialogTree from './DialogTree.js';
 
 class Prompt extends Component {
-    constructor() {
-        super();
-        this.state = {
-            action : ""
-        }
-    }
     handleEnter(event){
         // the enter key!!
         if ( event.which === 13 ) {
-            event.preventDefault();
+            
             var action = this.refs.prompt.value;
-            this.setState({action : "You did " + action});
+            var currentOptions = this.dialogTree.optionsLowerCase();
+
+            if (currentOptions.includes(action.toLowerCase()[0])) {
+                var currentState = this.dialogTree.currentState();
+                
+                if (currentState !== "default") {
+                    this.dialogTree.updateState(currentState + action.toLowerCase()[0]);
+                } else {
+                    this.dialogTree.updateState(action.toLowerCase()[0]);
+                }
+            } else {
+                this.dialogTree.updateState("default");
+            }
+
+            // clear input
+            event.preventDefault();
             this.refs.prompt.value = "";
             return false;
         }
@@ -21,9 +31,9 @@ class Prompt extends Component {
     render() {
         return (
             <div>
-                What will you do?
-                <br />
-                {this.state.action}
+                <DialogTree 
+                    ref={(dialogTree) => {this.dialogTree = dialogTree}}
+                />
                 <br />
                 <input
                     ref="prompt"
