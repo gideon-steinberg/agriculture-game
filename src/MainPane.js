@@ -17,9 +17,6 @@ class MainPane extends Component {
         inventory : {
             meal : 10,
             sheep : 5
-        },
-        market : {
-
         }
       };
     }
@@ -33,7 +30,7 @@ class MainPane extends Component {
         this.setState(newState);
         this.farmAllocation.updateState(newState);
         this.inventory.updateState(newState);
-        this.market.updateState(newState);
+        this.market.newItems();
     }
     
     render() {
@@ -59,7 +56,6 @@ class MainPane extends Component {
                 <tr>
                     <td>
                         <Market
-                            startingState = {this.state}
                             ref={(market) => {this.market = market}}
                         />
                     </td>
