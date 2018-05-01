@@ -5,7 +5,7 @@ class DialogTree extends Component {
     constructor() {
         super();
         this.state = {
-            currentState : "default"
+            currentState : this.statics.defaultState
         }
     }
 
@@ -13,7 +13,7 @@ class DialogTree extends Component {
         if (Object.keys(this.statics.dialogTree).includes(state)){
             this.setState( {currentState : state} );
         } else {
-            this.setState( {currentState : "default"} );
+            this.setState( {currentState : this.statics.defaultState} );
         }
     }
 
@@ -22,7 +22,7 @@ class DialogTree extends Component {
         return this.statics.dialogTree[this.state.currentState].options;
     }
 
-    optionsLowerCase(){
+    singleLetterOptions(){
         return this.currentOptions().map(function(item)
         {
             return item.toLowerCase()[0];
@@ -40,6 +40,8 @@ class DialogTree extends Component {
     }
 
     statics = {
+        defaultState : "default",
+        amountState : "amount",
         dialogTree : {
             "default" : {
                 options : [
@@ -48,6 +50,10 @@ class DialogTree extends Component {
                     "Buy from the market"
                 ],
                 title : "What will you do?"
+            },
+            "amount": {
+                options : [],
+                title : "How many?"
             },
             "a" : {
                 options : [
