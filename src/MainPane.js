@@ -5,6 +5,7 @@ import Market from './Market.js';
 import Crafting from './Crafting.js';
 import Prompt from './Prompt';
 import Upgrades from './Upgrades.js';
+import History from './History.js';
 
 class MainPane extends Component {
     constructor(props) {
@@ -86,11 +87,16 @@ class MainPane extends Component {
             </table>
             <hr />
             <Prompt 
-                startingState = {this.state}
-                ref={(prompt) => {this.prompt = prompt}}
+                startingState = { this.state }
+                ref={(prompt) => { this.prompt = prompt} }
                 updateStateCallback = { (state) => this.updateState(state) }
-                recipiesCallback = {() => { return this.crafting.recipies(); }}
-                marketCallback = {() => { return this.market.marketOptions(); }}
+                recipiesCallback = { () => { return this.crafting.recipies(); }}
+                marketCallback = { () => { return this.market.marketOptions(); }}
+                historyCallback = { (line) => this.history.addLine(line) }
+            />
+            <hr />
+            <History
+                ref={(history) => {this.history = history}}
             />
         </div>
       );

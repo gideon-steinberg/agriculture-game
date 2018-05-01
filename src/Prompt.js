@@ -10,6 +10,7 @@ class Prompt extends Component {
             updateStateCallback : props.updateStateCallback,
             recipiesCallback : props.recipiesCallback,
             marketCallback : props.marketCallback,
+            historyCallback : props.historyCallback,
             currentAction : undefined
         };
     }
@@ -57,6 +58,10 @@ class Prompt extends Component {
         event.preventDefault();
         this.refs.prompt.value = "";
         return false;
+    }
+
+    addLineToHistory(line) {
+        this.state.historyCallback(line);
     }
 
     setCurrentAction(action){
@@ -118,6 +123,7 @@ class Prompt extends Component {
 
         newState.farm[from] = newState.farm[from] - amount;
         newState.farm[to] = newState.farm[to] + amount;
+        this.addLineToHistory(`Allocated ${amount} ${from} to ${to}`);
         this.state.updateStateCallback(newState);
     }
 
@@ -135,6 +141,7 @@ class Prompt extends Component {
         var newState = Object.assign({}, this.state.gameState);
         newState.inventory[recipie.fromType] = newState.inventory[recipie.fromType] - recipie.from;
         newState.inventory[recipie.toType] = newState.inventory[recipie.toType] + recipie.to;
+        this.addLineToHistory(`Crafted ${recipie.from} ${recipie.fromType} into ${recipie.to} ${recipie.toType}`);
         this.state.updateStateCallback(newState);
     }
 
@@ -152,6 +159,7 @@ class Prompt extends Component {
         var newState = Object.assign({}, this.state.gameState);
         newState.inventory[option.sellItem] = newState.inventory[option.sellItem] - option.sellValue;
         newState.inventory[option.buyItem] = newState.inventory[option.buyItem] + option.buyValue;
+        this.addLineToHistory(`Sold ${option.sellValue} ${option.sellItem} and brought ${option.buyValue} ${option.buyItem} from the market`);
         this.state.updateStateCallback(newState);
     }
 
