@@ -99,6 +99,10 @@ class DialogTree extends Component {
             "c" : {
                 options: [],
                 title : "Which recipe do you want to craft?"
+            },
+            "b" : {
+                options: [],
+                title : "Which item do you want to buy from the market?"
             }
         }
     }

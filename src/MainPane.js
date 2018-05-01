@@ -79,6 +79,7 @@ class MainPane extends Component {
                 ref={(prompt) => {this.prompt = prompt}}
                 updateStateCallback = { (state) => this.updateState(state) }
                 recipiesCallback = {() => { return this.crafting.recipies(); }}
+                marketCallback = {() => { return this.market.marketOptions(); }}
             />
         </div>
       );

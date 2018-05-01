@@ -9,6 +9,7 @@ class Prompt extends Component {
             gameState : props.startingState,
             updateStateCallback : props.updateStateCallback,
             recipiesCallback : props.recipiesCallback,
+            marketCallback : props.marketCallback,
             currentAction : undefined
         };
     }
@@ -93,6 +94,10 @@ class Prompt extends Component {
                 // crafting a recipie
                 this.craftItem(Number(action));
                 break;
+            case "b":
+                // Buy from the market
+                this.buyItemFromMarket(Number(action));
+                break;
             default:
                 return;
         }
@@ -133,6 +138,23 @@ class Prompt extends Component {
         this.state.updateStateCallback(newState);
     }
 
+    buyItemFromMarket(number){
+        if (isNaN(number) || number <= 0 || number > this.marketOptions().length){
+            return;
+        }
+
+        var option = this.marketOptions()[number - 1];
+        var inventory = this.state.gameState.inventory;
+        if (inventory[option.sellItem] < option.sellValue) {
+            return;
+        }
+
+        var newState = Object.assign({}, this.state.gameState);
+        newState.inventory[option.sellItem] = newState.inventory[option.sellItem] - option.sellValue;
+        newState.inventory[option.buyItem] = newState.inventory[option.buyItem] + option.buyValue;
+        this.state.updateStateCallback(newState);
+    }
+
     transformLetterToItem(letter) { 
         switch(letter) {
             case "s":
@@ -151,6 +173,10 @@ class Prompt extends Component {
 
     recipies(){
         return this.state.recipiesCallback();
+    }
+
+    marketOptions() {
+        return this.state.marketCallback();
     }
     
     render() {

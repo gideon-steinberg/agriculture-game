@@ -12,21 +12,18 @@ class Crafting extends Component {
                     to : 1,
                     toType : "meal",
                     fromType: "wheat",
-                    index : 1,
                 },
                 {
                     from : 1,
                     to : 3,
                     toType : "meal",
                     fromType: "cow",
-                    index : 2,
                 },
                 {
                     from : 1,
                     to : 2,
                     toType : "meal",
                     fromType: "sheep",
-                    index : 3,
                 }
             ]
         };
@@ -40,9 +37,9 @@ class Crafting extends Component {
         return (
             <div>
                 Crafting
-                { this.state.recipies.map(function(item)
+                { this.state.recipies.map(function(item, index)
                     {
-                        return <div key={item.fromType}>{item.index}. {item.from} {item.fromType} => {item.to} {item.toType} <br/></div>;
+                        return <div key={item.fromType}>{index + 1}. {item.from} {item.fromType} => {item.to} {item.toType} <br/></div>;
                     })
                 }
             </div>

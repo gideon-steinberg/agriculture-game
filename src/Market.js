@@ -82,6 +82,10 @@ class Market extends Component {
         return market;
     }
 
+    marketOptions(){
+        return this.state.market;
+    }
+
     newItems()
     {
         this.setState( 
@@ -95,9 +99,9 @@ class Market extends Component {
         return (
             <div>
                 Market
-                { this.state.market.map(function(item)
+                { this.state.market.map(function(item, index)
                     {
-                        return <div key={item.sellItem + item.buyItem}>{item.sellValue} {item.sellItem} => {item.buyValue} {item.buyItem} <br/></div>;
+                        return <div key={item.sellItem + item.buyItem}>{index + 1}. {item.sellValue} {item.sellItem} => {item.buyValue} {item.buyItem} <br/></div>;
                     })
                 }
             </div>
