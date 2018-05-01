@@ -4,6 +4,7 @@ import Inventory from './Inventory.js';
 import Market from './Market.js';
 import Crafting from './Crafting.js';
 import Prompt from './Prompt';
+import Upgrades from './Upgrades.js';
 
 class MainPane extends Component {
     constructor(props) {
@@ -20,7 +21,10 @@ class MainPane extends Component {
             meal : 10,
             sheep : 1,
             wheat : 4,
-            cow : 2
+            cow : 2,
+            dog : 1,
+            cat : 1,
+            barn : 3
         }
       };
     }
@@ -30,6 +34,7 @@ class MainPane extends Component {
         this.setState(state);
         this.farmAllocation.updateState(state);
         this.inventory.updateState(state);
+        this.upgrades.updateState(state);
         this.prompt.updateState(state);
     }
 
@@ -56,6 +61,12 @@ class MainPane extends Component {
                             <Inventory
                                 startingState = {this.state}
                                 ref={(inventory) => {this.inventory = inventory}}
+                            />
+                        </td>
+                        <td>
+                            <Upgrades
+                                startingState = {this.state}
+                                ref={(upgrades) => {this.upgrades = upgrades}}
                             />
                         </td>
                     </tr>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Inventory extends Component {
+class Upgrades extends Component {
     constructor(props) {
         super(props);
     
@@ -15,18 +15,16 @@ class Inventory extends Component {
     render() {
         return (
             <div>
-                Inventory
+                Upgrades
                 <br />
-                Sheep {this.state.sheep} 
+                Dog {this.state.dog} 
                 <br />
-                Cow {this.state.cow}
+                Cat {this.state.cat}
                 <br />
-                Wheat {this.state.wheat}
-                <br />
-                Meal {this.state.meal}
+                Barn {this.state.barn}
             </div>
         )
     }
 }
 
-export default Inventory;
+export default Upgrades;
