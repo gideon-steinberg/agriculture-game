@@ -18,7 +18,9 @@ class MainPane extends Component {
         },
         inventory : {
             meal : 10,
-            sheep : 1
+            sheep : 1,
+            wheat : 4,
+            cow : 2
         }
       };
     }
@@ -75,7 +77,8 @@ class MainPane extends Component {
             <Prompt 
                 startingState = {this.state}
                 ref={(prompt) => {this.prompt = prompt}}
-                promptCallback = { (state) => this.updateState(state) }
+                updateStateCallback = { (state) => this.updateState(state) }
+                recipiesCallback = {() => { return this.crafting.recipies(); }}
             />
         </div>
       );

@@ -20,7 +20,11 @@ class Inventory extends Component {
                 <br />
                 Sheep {this.state.sheep} 
                 <br />
-                Meal {this.state.meal} 
+                Cow {this.state.cow}
+                <br />
+                Wheat {this.state.wheat}
+                <br />
+                Meal {this.state.meal}
             </div>
         )
     }

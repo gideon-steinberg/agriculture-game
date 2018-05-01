@@ -95,6 +95,10 @@ class DialogTree extends Component {
                     "Unassigned",
                 ],
                 title : "What do you want to allocate an wheat area in the farm to?"
+            },
+            "c" : {
+                options: [],
+                title : "Which recipe do you want to craft?"
             }
         }
     }

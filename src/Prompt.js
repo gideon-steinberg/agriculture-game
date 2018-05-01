@@ -7,7 +7,8 @@ class Prompt extends Component {
     
         this.state = {
             gameState : props.startingState,
-            promptCallback : props.promptCallback,
+            updateStateCallback : props.updateStateCallback,
+            recipiesCallback : props.recipiesCallback,
             currentAction : undefined
         };
     }
@@ -71,9 +72,12 @@ class Prompt extends Component {
                 case "a":
                     this.updateFarm(currentAction, Number(action));
                     this.setCurrentAction(undefined);
+                    this.dialogTree.updateState(this.dialogTreeDefaultState());
                     break;
                 default:
-                    break;
+                    this.setCurrentAction(undefined);
+                    this.dialogTree.updateState(this.dialogTreeDefaultState());
+                    return;
             }
         }
 
@@ -84,6 +88,10 @@ class Prompt extends Component {
                     this.setCurrentAction(combinedAction);
                     this.dialogTree.updateState(this.dialogTree.statics.amountState);
                 }
+                break;
+            case "c":
+                // crafting a recipie
+                this.craftItem(Number(action));
                 break;
             default:
                 return;
@@ -105,7 +113,24 @@ class Prompt extends Component {
 
         newState.farm[from] = newState.farm[from] - amount;
         newState.farm[to] = newState.farm[to] + amount;
-        this.state.promptCallback(newState);
+        this.state.updateStateCallback(newState);
+    }
+
+    craftItem(recipeNumber){
+        if (isNaN(recipeNumber) || recipeNumber <= 0 || recipeNumber > this.recipies().length){
+            return;
+        }
+
+        var recipie = this.recipies()[recipeNumber - 1];
+        var inventory = this.state.gameState.inventory;
+        if (inventory[recipie.fromType] < recipie.from) {
+            return;
+        }
+
+        var newState = Object.assign({}, this.state.gameState);
+        newState.inventory[recipie.fromType] = newState.inventory[recipie.fromType] - recipie.from;
+        newState.inventory[recipie.toType] = newState.inventory[recipie.toType] + recipie.to;
+        this.state.updateStateCallback(newState);
     }
 
     transformLetterToItem(letter) { 
@@ -122,6 +147,10 @@ class Prompt extends Component {
                 return undefined;
         }
         
+    }
+
+    recipies(){
+        return this.state.recipiesCallback();
     }
     
     render() {
