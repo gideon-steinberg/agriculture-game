@@ -1,10 +1,13 @@
 html {
   background-color: black;
   color: green;
+  font-size: 24px;
+  font-family: 'Lucida Console', Monaco, monospace;
 }
 
 td {
   border-right:50px;
+  border-bottom: 15px;
   border-style:solid;
   border-color:black;
   vertical-align: top;
@@ -14,4 +17,15 @@ td {
   background-color: black;
   color: green;
   border-color: green;
+  font-size: 24px;
+  font-family: 'Lucida Console', Monaco, monospace;
+}
+
+hr {
+  color: green;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
